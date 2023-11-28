@@ -15,6 +15,7 @@ Feel free to contribute with your own branch and then to do some merge requests.
 Tools needed:
 ```sh
 pip install discord.py
+pip install -U python-dotenv
 ```
 
 How to start the bot:

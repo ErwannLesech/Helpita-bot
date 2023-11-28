@@ -1,5 +1,13 @@
 import discord
+from dotenv import load_dotenv
+import os
 
 def main():
-    client = discord.Client()
-    client.run("MTE3OTE5OTgzNTAwNjU3NDY5Mg.GKDumI.qa8IkEgZsCLysEB0j721laDQ90GkF73To_VXDk")
+    load_dotenv(dotenv_path="config.conf")
+
+    intents = discord.Intents.default()
+    client = discord.Client(intents=intents)
+    client.run(os.getenv("TOKEN"))
+
+if __name__ == "__main__":
+    main()
