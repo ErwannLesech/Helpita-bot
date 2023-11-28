@@ -20,4 +20,5 @@ pip install discord.py
 How to start the bot:
 ```sh
 cd src/
-python3 main.py```
+python3 main.py
+```
