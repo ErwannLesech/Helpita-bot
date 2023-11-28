@@ -11,7 +11,13 @@ Incoming
 ## How to contribute
 
 Feel free to contribute with your own branch and then to do some merge requests.
-Pr√requis :
+
+Tools needed:
 ```sh
 pip install discord.py
 ```
+
+How to start the bot:
+```sh
+cd src/
+python3 main.py```
