@@ -1,46 +1,32 @@
+import os
+
+import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import os
+
 
 def main():
     # loads the token
     load_dotenv(dotenv_path="config.conf")
 
-    # inits bot
-    # intents = discord.Intents.default()
-    # intents.members = True        # for the on_member_join func
-    # client = discord.Client(intents=intents)
+    class HelpitaBot(commands.Bot):
+        def __init__(self):
+            super().__init__(command_prefix="/", intents=discord.Intents.default())
 
-    bot = commands.Bot(command_prefix="/")
+        # prints ready when the bot is started
+        async def on_ready(self):
+            print(f"{self.user.display_name} connected")
+    
+    help_bot = HelpitaBot()
+    help_bot.run(os.getenv("TOKEN"))
 
-    # prints ready when the bot is started
-    @bot.event
-    async def on_ready():
-        print("READY")
+    # reacts when a message "/todo day task" is sent on the server
+    @bot.command(name='todo')
+    async def todo_list(context, day: str, task: str):
+        print("received")
+        await context.content.send("```day: task```")
 
-    # reacts when a message is sent on the server
-    @bot.command()
-    async def on_message(message):
-        print(message.content)                      # prints every messages sent on the server
-        if message.content.lower() == "Bonjour":    # BONJOUR, BonJour, bonjour
-            await message.content.send("Bonsoir")   # respond on the server
-        #TODO ZEUS
-        elif message.content.startswith("/zeus"):
-            await message.content.send("")
-        #TODO NEWS
-        elif message.content.startswith("/news"):
-            await message.content.send("")
-        elif message.content.startswith("/todo"):
-            day = message.content.split()[1]
-            task = message.content.split()[2]
-
-    # writes a message on the test channel to welcome a new user
-    # @bot.event
-    # async def on_member_join(member):
-    # test_chan: discord.TextChannel = client.get_channel(1179455998876987525) # test channel
-    # await test_chan.send(content=f"Welcome {member.display_name} !")
-
-    bot.run(os.getenv("TOKEN"))
+    
 
 if __name__ == "__main__":
     main()
