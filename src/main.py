@@ -6,35 +6,26 @@ from dotenv import load_dotenv
 
 load_dotenv(dotenv_path="config.conf")
 
-intent = discord.Intents.all()
-intent.members = True
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
-class HelpitaBot(commands.Bot):
-    def __init__(self):
-        super().__init__(command_prefix="!", intents=intent)
+@bot.event
+async def on_ready():
+    print("READY")
 
-    async def on_ready(self):
-        print("READY")
-    
-    async def on_message(self, message):
-        if message.author == self.user:
-            return
-        
-        await self.process_commands(message)
-    
-        print(message.content)
-        if message.content.lower() == "bonjour":
-            await message.channel.send("Bonsoir")
-        elif message.content.startswith("/zeus"):
-            await message.channel.send("zeus mode")
-        elif message.content.startswith("/news"):
-            await message.channel.send("news mode")
-        elif message.content.startswith("/todo"):
-            await message.channel.send("todo mode")
-        
-    async def todo(ctx):
-        await ctx.send("todo mode")
+@bot.command(name="helpita")
+async def helpita(ctx):
+    await ctx.send(f"```Usage:\n\t/zeus: prints the schedule\n\t/news \"[token]\": prints the 5 last news of the token\n\t/todo [date] \"task\": add the task to the todo list```")
 
+@bot.command(name="todo")
+async def todo_add(ctx, day, task):
+    await ctx.send(f"```{day}: {task}```")
 
-bot = HelpitaBot()
+@bot.command(name="zeus")
+async def print_zeus(ctx):
+    await ctx.send(f"Print ZEUS !")
+
+@bot.command(name="news")
+async def new_news(ctx):
+    await ctx.send(f"Print News !")
+
 bot.run(os.getenv("TOKEN"))
