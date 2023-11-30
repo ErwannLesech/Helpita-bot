@@ -15,11 +15,14 @@ bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
 @bot.event
 async def on_ready():
-    print("READY")
+    print("Helpita Bot is Up and Ready !")
 
-@bot.command(name="helpita")
-async def helpita(ctx):
-    await ctx.send(f"```Usage:\n\t/zeus: prints the schedule\n\t/news \"[token]\": prints the 5 last news of the token\n\t/todo [date] \"task\": add the task to the todo list\n\t/gpt [prompt]: prints the GPT-3.5 response to the prompt\n\t/helpita: prints this message```")
+    sync = await bot.tree.sync()
+    print(f"{len(sync)} command(s) sync.")
+
+@bot.tree.command(name="helpita", description="Prints the help message")
+async def helpita(interaction: discord.Interaction):
+    await interaction.response.send_message(f"```Usage:\n\t/zeus: prints the schedule\n\t/news \"[token]\": prints the 5 last news of the token\n\t/todo [date] \"task\": add the task to the todo list\n\t/gpt [prompt]: prints the GPT-3.5 response to the prompt\n\t/helpita: prints this message```")
 
 todo(bot)
 zeus(bot)
