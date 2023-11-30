@@ -5,6 +5,6 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 def zeus(bot):
-    @bot.command(name="zeus")
-    async def print_zeus(ctx):
-        await ctx.send(f"Print ZEUS !")
+    @bot.tree.command(name="zeus", description="Prints the schedule")
+    async def print_zeus(interaction: discord.Interaction):
+        await interaction.response.send_message(f"Print ZEUS !")
