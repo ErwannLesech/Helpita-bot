@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from zeus import zeus
 from news import news
 from todo import todo
-from openai import openai
+from chat import gpt
 
 load_dotenv(dotenv_path="config.conf")
 
@@ -24,6 +24,6 @@ async def helpita(ctx):
 todo(bot)
 zeus(bot)
 news(bot)
-openai(bot)
+gpt(bot)
 
 bot.run(os.getenv("TOKEN"))
