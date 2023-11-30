@@ -8,6 +8,7 @@ from zeus import zeus
 from news import news
 from todo import todo
 from chat import gpt
+from annales import annales
 
 load_dotenv(dotenv_path="config.conf")
 
@@ -28,5 +29,6 @@ todo(bot)
 zeus(bot)
 news(bot)
 gpt(bot)
+annales(bot)
 
 bot.run(os.getenv("TOKEN"))
