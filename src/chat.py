@@ -3,6 +3,8 @@ import openai
 import os
 import discord
 
+from logger import create_log
+
 load_dotenv(dotenv_path="config.conf")
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
