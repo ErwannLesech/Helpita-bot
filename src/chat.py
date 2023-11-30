@@ -18,7 +18,7 @@ def gpt(bot):
         except Exception as e:
             print(f"Error during interaction processing: {e}")
         user = interaction.user
-        create_log(prompt, user.name)
+        create_log(prompt, user)
 
 def get_openai_response(prompt):
     response = openai.ChatCompletion.create(
