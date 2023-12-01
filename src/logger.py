@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 import os
 from openpyxl import load_workbook
 import time
-import pandas as pd 
 
 load_dotenv(dotenv_path="config.conf")
 
