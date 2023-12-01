@@ -23,7 +23,7 @@ async def on_ready():
 
 @bot.tree.command(name="helpita", description="Prints the help message")
 async def helpita(interaction: discord.Interaction):
-    await interaction.response.send_message(f"```Usage:\n\t/helpita: prints this help message\n\n\t/gpt [Prompt]: prints the GPT-4 response to the prompt\n\n\t/todo: prints the todo list\n\t/todo_a [Date] [Task]: adds the task to the todo list\n\t/todo_r [Date] [Task]: removes the task to the todo list\n\t/todo_c: clears the todo list\n\n\t/lol_acc [Pseudo] [Tag] : Prints info about your lol account```")
+    await interaction.response.send_message(f"```Usage:\n\t/helpita: prints this help message\n\n\t/gpt [Prompt]: prints the GPT-4 response to the prompt\n\n\t/todo: prints the todo list\n\t/todo_a [Date] [Task]: adds the task to the todo list\n\t/todo_r [Date] [Task]: removes the task to the todo list\n\t/todo_c: clears the todo list\n\n\t/annales [Subject]: displays the link to the drive for the subject (CPXA, THL, ASM, NET, SYS, MASI, STA, SH)\n\n\t/lol_acc [Pseudo] [Tag] : Prints info about your lol account```")
 
 todo(bot)
 zeus(bot)
