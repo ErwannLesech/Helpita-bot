@@ -13,38 +13,44 @@ message_history = []
 
 message_history.append({"role": "system", "content": "Tu es un bot discord"})
 
-
-historic = open("historic.txt", "r")
-for line in historic:
-    message_history.append(line)
-historic.close()
-
-
 def gpt(bot):
-    @bot.tree.command(name="gpt", description="Prints the GPT-3.5 response to the prompt")
+    @bot.tree.command(name="gpt", description="Prints the GPT-4 response to the prompt")
     async def print_gpt(interaction: discord.Interaction, prompt: str):
         try:
+            # wait for the response
+            await interaction.response.defer()
+            # await asyncio.sleep(10)
             response = get_openai_response(prompt)
-            await interaction.response.send_message(f"```{response}```")
+            embed = discord.Embed(title="GPT-4", color=discord.Color.blue())
+            embed.add_field(name="Prompt", value=f"```{prompt}```", inline=False)
+            embed.add_field(name="Response", value=f"```{response}```", inline=False)
+            await interaction.followup.send(embed=embed)
         except Exception as e:
             print(f"Error during interaction processing: {e}")
         user = interaction.user
         create_log(prompt, user)
 
+    @bot.tree.command(name="gpt_c", description="Clears the GPT-4 history")
+    async def clear_gpt(interaction: discord.Interaction):
+        try:
+            message_history.clear()
+            message_history.append({"role": "system", "content": "Tu es un bot discord"})
+            await interaction.response.send_message(f"```GPT-4 history cleared```")
+        except Exception as e:
+            print(f"Error during interaction processing: {e}")
+        
+    
+
 def get_openai_response(prompt):
     message_history.append({"role": "user", "content": prompt})
-    print(message_history)
+    # print(message_history)
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=message_history,
         temperature=0.9,
-        max_tokens=2048,
+        max_tokens=2048
     )
-
-    # write in historic
-    historic = open("historic.txt", "w")
-    historic.write("\{\"role\": \"user\", \"content\": prompt\}\n")
-    historic.write("\{\"role\": \"system\", \"content\": response\}\n")
-    historic.close()
+    # print(response)
+    message_history.pop()
     
     return response["choices"][0]["message"]["content"]
