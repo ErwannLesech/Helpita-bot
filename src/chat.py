@@ -45,7 +45,7 @@ def get_openai_response(prompt):
     message_history.append({"role": "user", "content": prompt})
     # print(message_history)
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-1106-preview",
         messages=message_history,
         temperature=0.9,
         max_tokens=2048
