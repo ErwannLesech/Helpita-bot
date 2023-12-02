@@ -209,6 +209,9 @@ def get_lol_masteries(id):
     champLvl = []
     champPts = []
 
+    if response.status_code != 200:
+        return "Error"
+
     for champion in response.json():
         champIds.append(champion['championId'])
         champLvl.append(champion['championLevel'])
